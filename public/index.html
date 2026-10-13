@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1d4e89">
+<meta name="robots" content="noindex, nofollow">
+<title>mybusmap</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header id="bar">
+  <h1>mybusmap</h1>
+  <div id="search">
+    <input id="search-input" type="search" placeholder="Find a bus stop" autocomplete="off" aria-label="Find a bus stop">
+    <ul id="search-results" class="results" hidden></ul>
+  </div>
+  <button id="locate" class="icon" title="Show my location" aria-label="Show my location">◎</button>
+</header>
+
+<div id="map"></div>
+<div id="status" hidden></div>
+<div id="pick-hint" hidden>Tap the map to choose a place <button id="pick-cancel">Cancel</button></div>
+
+<section id="panel" class="collapsed">
+  <nav id="tabs">
+    <button data-tab="buses" class="active">Buses</button>
+    <button data-tab="stop">Stops</button>
+    <button data-tab="plan">Plan</button>
+    <button id="toggle" class="icon" aria-label="Show or hide panel">▴</button>
+  </nav>
+
+  <div id="tab-buses" class="tab">
+    <div class="row">
+      <label id="region-row" hidden>Region <select id="region"></select></label>
+      <label class="check"><input type="checkbox" id="show-all"> All buses in view</label>
+    </div>
+    <p id="all-note" class="note" hidden>Zoom in to see all buses.</p>
+    <h2>Tracked services</h2>
+    <ul id="tracked" class="list"></ul>
+    <h2>Services in this area</h2>
+    <input id="service-filter" type="search" placeholder="Filter by number, operator or place" aria-label="Filter services">
+    <ul id="services" class="list"></ul>
+  </div>
+
+  <div id="tab-stop" class="tab" hidden>
+    <div id="stop-empty">
+      <p class="note">Zoom in to see stops, tap one for departures, or search above.</p>
+      <h2>Favourite stops</h2>
+      <ul id="favourites" class="list"></ul>
+    </div>
+    <div id="stop-detail" hidden>
+      <div class="stop-head">
+        <h2 id="stop-name"></h2>
+        <button id="stop-fav" class="icon" aria-label="Favourite">☆</button>
+      </div>
+      <div id="stop-services" class="chips"></div>
+      <table id="departures"><tbody></tbody></table>
+      <p id="stop-note" class="note"></p>
+    </div>
+    <div id="trip-detail" hidden>
+      <button id="trip-back" class="link">‹ <span></span></button>
+      <div class="trip-head"></div>
+      <div class="trip-nav"></div>
+      <ol id="trip-stops"></ol>
+      <p class="note">Tap a stop to find it on the map.</p>
+    </div>
+  </div>
+
+  <div id="tab-plan" class="tab" hidden>
+    <form id="plan-form">
+      <div class="place" data-end="from">
+        <label>From</label>
+        <input type="search" placeholder="Stop name" autocomplete="off">
+        <button type="button" class="here" title="My location">◎</button>
+        <button type="button" class="pick" title="Choose on map">⌖</button>
+        <ul class="results" hidden></ul>
+      </div>
+      <div class="place" data-end="to">
+        <label>To</label>
+        <input type="search" placeholder="Stop name" autocomplete="off">
+        <button type="button" class="here" title="My location">◎</button>
+        <button type="button" class="pick" title="Choose on map">⌖</button>
+        <ul class="results" hidden></ul>
+      </div>
+      <div class="row">
+        <label>Leave at <input type="time" id="plan-time"></label>
+        <button type="submit" class="primary">Find buses</button>
+      </div>
+    </form>
+    <p id="plan-note" class="note"></p>
+    <ul id="plan-results" class="list"></ul>
+  </div>
+</section>
+
+<div id="signin" hidden>
+  <form>
+    <h2>mybusmap</h2>
+    <p>This map is shared with family and friends. Please enter your name.</p>
+    <input name="name" autocomplete="given-name" autocapitalize="words" aria-label="Your name" placeholder="Your name" required>
+    <button type="submit" class="primary">Continue</button>
+    <p class="error" role="alert"></p>
+  </form>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="app.js"></script>
+</body>
+</html>

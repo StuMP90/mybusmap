@@ -1,0 +1,53 @@
+<?php
+/**
+ * mybusmap configuration.
+ *
+ * Copy this file to config.php (which is git-ignored) and fill in your
+ * BODS API key. config.php lives outside the public web root and is only
+ * ever read server-side, so the key is never sent to the browser.
+ */
+return [
+    // Bus Open Data Service API key - https://data.bus-data.dft.gov.uk/account/
+    'bods_api_key' => '',
+
+    // GTFS timetable regions to import (bin/import-gtfs.php). Valid codes:
+    // east_anglia, east_midlands, london, north_east, north_west, scotland,
+    // south_east, south_west, wales, west_midlands, yorkshire
+    // Each region is a few hundred MB to download; import only what you need.
+    'gtfs_regions' => ['west_midlands'],
+
+    // Where the timetable database and live-data cache are kept (not public).
+    'data_dir' => __DIR__ . '/data',
+
+    // Seconds to cache live vehicle positions. BODS itself only refreshes
+    // roughly every 10-30 seconds, so a short cache costs nothing in freshness
+    // and stops several open browsers multiplying requests to the API.
+    'live_cache_ttl' => 10,
+
+    // Largest map area (in square degrees) for which live buses are fetched
+    // by bounding box. ~0.05 is roughly a 25km x 20km area in the UK.
+    'max_live_bbox' => 0.05,
+
+    // Names that may use the site, case-insensitive. Visitors type one once and
+    // get a signed cookie that lasts a year. Removing a name here signs that
+    // person out. Leave the list empty to let anyone use the site.
+    'access_names' => [],
+
+    // Signs the access cookie. Any long random string; changing it signs
+    // everyone out. Generate one with:
+    //   php -r 'echo bin2hex(random_bytes(32)), PHP_EOL;'
+    'access_secret' => '',
+
+    // Non-secret defaults sent to the browser. Users can change their own
+    // selections in the app; these apply to first-time visitors.
+    'defaults' => [
+        'center' => [52.4975, -2.1686],   // Stourbridge
+        'zoom'   => 13,
+        // Services to track: operator NOC (see the Services list) + line name.
+        'services' => [
+            ['noc' => 'DIAM', 'line' => '226'],
+            ['noc' => 'TNXB', 'line' => '15'],
+            ['noc' => 'TNXB', 'line' => '16'],
+        ],
+    ],
+];
