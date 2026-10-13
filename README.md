@@ -13,6 +13,9 @@ The browser only ever talks to `public/api.php`. The BODS API key lives in
 
 ## Licences and credits
 
+The code is released under the [MIT Licence](LICENSE). The data it shows
+has its own licences:
+
 - Bus timetables, live positions and stop data: Bus Open Data Service and
   NaPTAN, © Crown copyright, used under the
   [Open Government Licence v3.0](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/).
