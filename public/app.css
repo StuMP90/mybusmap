@@ -231,7 +231,7 @@ button.primary { background: var(--brand); color: #fff; border: 0; border-radius
   align-items: center;
   justify-content: center;
   padding: 16px;
-  background: rgba(27, 31, 36, .55);
+  background: #1b1f24;
 }
 #signin[hidden] { display: none; }
 #signin form {
